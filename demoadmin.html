@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Demo Café — მართვის პანელი</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="demoadmin.css">
+</head>
+<body>
+
+  <!-- ===== LOGIN (Firebase mode only) ===== -->
+  <section class="auth" id="authView" hidden>
+    <form class="auth__card" id="loginForm" autocomplete="on">
+      <div class="auth__orn">✦ ✦ ✦</div>
+      <h1>Demo Café</h1>
+      <p class="auth__sub">მენეჯერის პანელი</p>
+      <label class="field">
+        <span>ელფოსტა</span>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </label>
+      <label class="field">
+        <span>პაროლი</span>
+        <input type="password" id="loginPass" required autocomplete="current-password">
+      </label>
+      <p class="auth__err" id="loginErr" hidden></p>
+      <button type="submit" class="btn btn--primary btn--block" id="loginBtn">შესვლა</button>
+    </form>
+  </section>
+
+  <!-- ===== APP ===== -->
+  <div id="app" hidden>
+    <header class="top">
+      <div class="top__brand">
+        <b>Demo Café</b>
+        <span>მართვის პანელი</span>
+      </div>
+      <div class="top__right">
+        <span class="mode" id="modeBadge"></span>
+        <a class="btn btn--ghost btn--sm" href="demo.html" target="_blank" rel="noopener">მენიუს ნახვა ↗</a>
+        <button type="button" class="btn btn--ghost btn--sm" id="logoutBtn" hidden>გასვლა</button>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="list" role="tab">
+        კერძების სია <span class="count" id="countBadge">0</span>
+      </button>
+      <button type="button" class="tab" data-tab="form" role="tab" id="tabFormBtn">+ ახალი კერძი</button>
+    </nav>
+
+    <main class="wrap">
+
+      <!-- ===== TAB: LIST ===== -->
+      <section id="tab-list">
+        <div class="toolbar">
+          <input type="search" id="search" class="input" placeholder="🔍 ძებნა სახელით…">
+          <select id="filterSection" class="input"></select>
+        </div>
+
+        <div class="seed" id="seedBox" hidden>
+          <div class="seed__ico">🍽️</div>
+          <p>მენიუ ჯერ ცარიელია. ვიზუალური ტესტისთვის შეგიძლიათ ჩატვირთოთ 15 დემო კერძი.</p>
+          <button type="button" class="btn btn--primary" id="seedBtn">15 დემო კერძის ჩატვირთვა</button>
+        </div>
+
+        <div id="list" class="list"></div>
+      </section>
+
+      <!-- ===== TAB: FORM ===== -->
+      <section id="tab-form" hidden>
+        <form id="dishForm" class="panel" novalidate>
+          <h2 id="formTitle">ახალი კერძის დამატება</h2>
+
+          <label class="field">
+            <span>სექცია</span>
+            <select id="fSection" class="input" required></select>
+          </label>
+
+          <div class="block">
+            <div class="block__head">🇬🇪 ქართულად <small>(ძირითადი ენა)</small></div>
+            <label class="field">
+              <span>კერძის დასახელება</span>
+              <input type="text" id="fNameKa" class="input" maxlength="80" required placeholder="მაგ: ხაჭაპური იმერული">
+            </label>
+            <label class="field">
+              <span>აღწერა</span>
+              <textarea id="fDescKa" class="input" rows="3" maxlength="300" placeholder="მოკლე აღწერა, ინგრედიენტები…"></textarea>
+            </label>
+          </div>
+
+          <div class="block block--auto">
+            <div class="block__head">
+              🌐 ავტომატური თარგმანი
+              <button type="button" class="btn btn--ghost btn--sm" id="retranslateBtn">↻ ხელახლა გადათარგმნა</button>
+            </div>
+            <p class="status" id="trStatus">ქართულად ჩაწერისას თარგმანი ავტომატურად შეივსება. საჭიროების შემთხვევაში შეგიძლიათ შეასწოროთ.</p>
+
+            <div class="two">
+              <label class="field">
+                <span>🇬🇧 Name (English)</span>
+                <input type="text" id="fNameEn" class="input" maxlength="80">
+              </label>
+              <label class="field">
+                <span>🇷🇺 Название (Русский)</span>
+                <input type="text" id="fNameRu" class="input" maxlength="80">
+              </label>
+            </div>
+            <div class="two">
+              <label class="field">
+                <span>🇬🇧 Description (English)</span>
+                <textarea id="fDescEn" class="input" rows="3" maxlength="300"></textarea>
+              </label>
+              <label class="field">
+                <span>🇷🇺 Описание (Русский)</span>
+                <textarea id="fDescRu" class="input" rows="3" maxlength="300"></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block__head">💰 ფასი</div>
+            <label class="field">
+              <span id="priceLabel">ფასი (₾)</span>
+              <input type="number" id="fPrice" class="input" min="0" step="0.5" inputmode="decimal" required placeholder="0.00">
+            </label>
+
+            <div id="glassBox" hidden>
+              <label class="check">
+                <input type="checkbox" id="fGlassOn">
+                <span class="check__box"></span>
+                <span>ღვინის გაყიდვა ჭიქითაც</span>
+              </label>
+              <label class="field" id="glassPriceWrap" hidden>
+                <span>ჭიქის ფასი (₾)</span>
+                <input type="number" id="fGlassPrice" class="input" min="0" step="0.5" inputmode="decimal" placeholder="0.00">
+              </label>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block__head">🖼️ ფოტო <small>(არასავალდებულო)</small></div>
+            <div class="photo">
+              <div class="photo__preview" id="photoPreview">არ არის</div>
+              <div class="photo__btns">
+                <label class="btn btn--ghost btn--sm" for="fPhoto">აირჩიეთ ფოტო</label>
+                <input type="file" id="fPhoto" accept="image/*" hidden>
+                <button type="button" class="btn btn--ghost btn--sm" id="photoRemove" hidden>წაშლა</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="switch-line">
+            <span class="switch">
+              <input type="checkbox" id="fActive" checked>
+              <span class="switch__knob"></span>
+            </span>
+            <span>მენიუში ჩანს <small>(გამორთვა = სტოპი)</small></span>
+          </label>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn--ghost" id="cancelBtn">გაუქმება</button>
+            <button type="submit" class="btn btn--primary" id="saveBtn">შენახვა</button>
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="demoadmin.js" defer></script>
+</body>
+</html>

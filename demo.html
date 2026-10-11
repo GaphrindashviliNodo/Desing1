@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6B2431">
+  <title>Demo Café</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="lang" role="group" data-i18n-label="langLabel">
+      <button type="button" data-lang="ka">ქარ</button>
+      <button type="button" data-lang="en">ENG</button>
+      <button type="button" data-lang="ru">РУС</button>
+    </div>
+    <div class="hero__orn">✦ ✦ ✦</div>
+    <h1 class="hero__title">Demo Café</h1>
+    <p class="hero__sub" data-i18n="heroSub"></p>
+    <div class="divider"><span></span><i>❖</i><span></span></div>
+    <p class="hero__note" data-i18n="heroNote"></p>
+  </header>
+
+  <!-- ===== SECTION NAV (sticky) ===== -->
+  <nav class="sections" id="sectionNav" data-i18n-label="navLabel"></nav>
+
+  <!-- ===== MENU ===== -->
+  <main class="container" id="menu"></main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="hero__orn">✦ ✦ ✦</div>
+      <h2 class="footer__brand">Demo Café</h2>
+      <p class="footer__thanks" data-i18n="fThanks"></p>
+
+      <div class="footer__grid">
+        <div class="footer__col">
+          <span class="footer__ico">📍</span>
+          <h4 data-i18n="fAddrL"></h4>
+          <p data-i18n="fAddr"></p>
+        </div>
+        <div class="footer__col">
+          <span class="footer__ico">🕙</span>
+          <h4 data-i18n="fHoursL"></h4>
+          <p data-i18n="fHours"></p>
+        </div>
+        <div class="footer__col">
+          <span class="footer__ico">📞</span>
+          <h4 data-i18n="fPhoneL"></h4>
+          <p>+995 555 00 00 00</p>
+        </div>
+        <div class="footer__col">
+          <span class="footer__ico">📶</span>
+          <h4>Wi-Fi</h4>
+          <p data-i18n="fWifi"></p>
+        </div>
+      </div>
+
+      <div class="lang lang--footer" role="group" data-i18n-label="langLabel">
+        <button type="button" data-lang="ka">ქარ</button>
+        <button type="button" data-lang="en">ENG</button>
+        <button type="button" data-lang="ru">РУС</button>
+      </div>
+
+      <p class="footer__note" data-i18n="fNote"></p>
+      <p class="footer__copy">© <span id="year"></span> Demo Café</p>
+    </div>
+  </footer>
+
+  <!-- ===== CART BUTTON ===== -->
+  <button type="button" class="cart-fab" id="cartBtn" data-i18n-label="cart">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 4h2.2l2.1 10.2a1.6 1.6 0 0 0 1.6 1.3h8.1a1.6 1.6 0 0 0 1.6-1.2L20.4 8H6.2"/>
+      <circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>
+    </svg>
+    <span class="cart-fab__label" data-i18n="cart"></span>
+    <span class="cart-fab__badge" id="cartCount">0</span>
+    <span class="cart-fab__total" id="cartTotalFab">0 ₾</span>
+  </button>
+
+  <!-- ===== CART SHEET ===== -->
+  <div class="sheet" id="cartSheet" aria-hidden="true">
+    <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="sheet__head">
+        <h3 id="cartTitle" data-i18n="cartTitle"></h3>
+        <button type="button" class="sheet__x" id="cartClose" data-i18n-label="close">✕</button>
+      </div>
+      <div class="sheet__body" id="cartBody"></div>
+      <div class="sheet__foot" id="cartFoot">
+        <div class="sheet__total">
+          <span data-i18n="total"></span>
+          <b id="cartTotal">0 ₾</b>
+        </div>
+        <p class="sheet__hint" data-i18n="cartHint"></p>
+        <div class="sheet__actions">
+          <button type="button" class="btn-ghost" id="cartClear" data-i18n="clear"></button>
+          <button type="button" class="btn-add" id="cartDone" data-i18n="close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="demo.js" defer></script>
+</body>
+</html>
