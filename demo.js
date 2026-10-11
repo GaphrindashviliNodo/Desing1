@@ -13,7 +13,7 @@
   // Same values as in demoadmin.js. If any character differs from your own
   // Firebase "Config" block, paste your original block here instead.
   const firebaseConfig = {
-      apiKey: "AIzaSyC1SPZAUgQvkXrJpl2V8jXp4AEe7Q4BjKs",
+     apiKey: "AIzaSyC1SPZAUgQvkXrJpl2V8jXp4AEe7Q4BjKs",
   authDomain: "desing1-bd7c3.firebaseapp.com",
   projectId: "desing1-bd7c3",
   storageBucket: "desing1-bd7c3.firebasestorage.app",
